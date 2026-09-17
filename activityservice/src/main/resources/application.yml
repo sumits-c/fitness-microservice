@@ -4,14 +4,13 @@ server:
 spring:
   application:
     name: activity-service
+
   mongodb:
     uri: ${MONGODB_ACTIVITY_URI}
     database: fitnessactivity
+
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    addresses: ${RABBITMQ_URL}
 
 eureka:
   client:
