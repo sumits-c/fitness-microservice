@@ -7,6 +7,9 @@ spring:
   mongodb:
     uri: ${MONGODB_RECOMMENDATION_URI}
     database: fitnessrecommendation
+  rabbitmq:
+    addresses: ${RABBITMQ_URL}
+
 
 eureka:
   client:
@@ -21,7 +24,7 @@ rabbitmq:
   routing:
     key: activity.tracking
 
-gemini:
+ai:
   api:
-    url: ${GEMINI_API_URL}
-    key: ${GEMINI_API_KEY}
+    url: ${AI_API_URL}
+    key: ${AI_API_KEY}
