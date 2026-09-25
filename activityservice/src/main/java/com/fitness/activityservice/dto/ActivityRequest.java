@@ -12,17 +12,23 @@ import java.util.Map;
 
 @Data
 public class ActivityRequest {
+
     @NotBlank
     private String userId;
+
     @NotNull
     private ActivityType type;
+
     @NotNull
     @Positive
     private Integer duration;
+
     @NotNull
     @PositiveOrZero
     private Integer caloriesBurned;
+
     @NotNull
     private LocalDateTime startTime;
+
     private Map<String, Object> additionalMetrics;
 }

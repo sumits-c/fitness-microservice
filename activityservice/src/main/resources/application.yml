@@ -13,6 +13,12 @@ spring:
     addresses: ${RABBITMQ_URL}
 
 eureka:
+  instance:
+    appname: activity-service
+    hostname: localhost
+    virtual-host-name: activity-service
+    secure-virtual-host-name: activity-service
+
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka

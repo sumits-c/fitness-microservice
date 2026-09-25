@@ -21,9 +21,13 @@ public class ActivityController {
     public ResponseEntity<ActivityResponse> trackActivity(@Valid @RequestBody ActivityRequest request){
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
+//    @GetMapping
+//    public ResponseEntity<List<ActivityResponse>> getUserActivities(String userId){
+//        return ResponseEntity.ok(activityService.getUserActivities(userId));
+//    }
     @GetMapping
-    public ResponseEntity<List<ActivityResponse>> getUserActivities(@RequestHeader("X-User-ID") String userId){
-        return ResponseEntity.ok(activityService.getUserActivities(userId));
+    public ResponseEntity<List<ActivityResponse>> getActivities() {
+        return ResponseEntity.ok(activityService.getActivities());
     }
     @GetMapping("/{activityId}")
     public ResponseEntity<ActivityResponse> getActivity(@PathVariable String activityId){

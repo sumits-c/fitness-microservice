@@ -1,6 +1,5 @@
 package com.fitness.activityservice.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,18 +18,27 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Activity{
+public class Activity {
+
     @Id
     private String id;
+
     private String userId;
+
     private ActivityType type;
+
     private Integer duration;
+
     private Integer caloriesBurned;
+
     private LocalDateTime startTime;
+
     @Field("metrics")
-    private Map<String,Object> additionalMetrics;
+    private Map<String, Object> additionalMetrics;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }

@@ -1,15 +1,12 @@
 import axios from "axios";
-const API_URL = 'http://localhost:8080/api';
 
-const api= axios.create({
-    baseURL:API_URL
-}
-);
+const API_URL = "http://localhost:9090";
 
-// api.interceptors.request.use((config)=>{
+const api = axios.create({
+  baseURL: API_URL
+});
 
-// });
-
-export const getActivities = ()=>api.get('/activities');
-export const addActivity = (activity) => api.post('/activity', activity);
-export const getActivityDetail = (id) => api.get(`/recommendations/activity/${id}`);
+export const getActivities = () => api.get('/api/activities');
+export const addActivity = (activity) => api.post('/api/activities', activity);
+export const getActivityDetail = (id) =>
+  api.get(`/api/recommendations/activity/${id}`);

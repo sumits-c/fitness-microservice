@@ -1,26 +1,48 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+    Box,
+    Button,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
 import { useState } from "react";
-import { addActivity } from '../services/api.js'
+import { addActivity } from "../services/api.js";
 
 const ActivityForm = ({ onActivityAdded }) => {
 
     const [activity, setActivity] = useState({
+        userId: "demo-user-1",
         type: "RUNNING",
         duration: "",
         caloriesBurned: "",
+        startTime: new Date().toISOString(),
         additionalMetrics: {}
     });
 
-     const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             await addActivity(activity);
+
             onActivityAdded();
-            setActivity({ type: "RUNNING", duration: '', caloriesBurned: ''});
+
+            setActivity({
+                userId: "demo-user-1",
+                type: "RUNNING",
+                duration: "",
+                caloriesBurned: "",
+                startTime: new Date().toISOString(),
+                additionalMetrics: {}
+            });
+
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
 
@@ -29,8 +51,12 @@ const ActivityForm = ({ onActivityAdded }) => {
 
                 <Select
                     value={activity.type}
+                    label="Activity Type"
                     onChange={(e) =>
-                        setActivity({ ...activity, type: e.target.value })
+                        setActivity({
+                            ...activity,
+                            type: e.target.value
+                        })
                     }
                 >
                     <MenuItem value="RUNNING">Running</MenuItem>
@@ -46,7 +72,10 @@ const ActivityForm = ({ onActivityAdded }) => {
                 sx={{ mb: 2 }}
                 value={activity.duration}
                 onChange={(e) =>
-                    setActivity({ ...activity, duration: e.target.value })
+                    setActivity({
+                        ...activity,
+                        duration: e.target.value
+                    })
                 }
             />
 
@@ -57,7 +86,10 @@ const ActivityForm = ({ onActivityAdded }) => {
                 sx={{ mb: 2 }}
                 value={activity.caloriesBurned}
                 onChange={(e) =>
-                    setActivity({ ...activity, caloriesBurned: e.target.value })
+                    setActivity({
+                        ...activity,
+                        caloriesBurned: e.target.value
+                    })
                 }
             />
 
