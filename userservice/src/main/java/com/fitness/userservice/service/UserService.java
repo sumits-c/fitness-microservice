@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -52,5 +55,16 @@ public class UserService {
         log.info("Calling user validation API for userId:{}",userId);
         return repository.existsById(userId);
     }
+    public List<UserResponse> getAllUsers() {
 
+        List<User> userList=repository.findAll();
+        return userList.stream().map(user -> {
+            UserResponse userResponse=new UserResponse();
+            userResponse.setId(user.getId());
+            userResponse.setEmail(user.getEmail());
+            userResponse.setFirstName(user.getFirstName());
+            userResponse.setLastName(user.getLastName());
+            return userResponse;
+        }).collect(Collectors.toList());
+    }
 }

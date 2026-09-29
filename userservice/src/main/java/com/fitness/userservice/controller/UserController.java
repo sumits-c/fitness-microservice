@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
@@ -25,5 +27,9 @@ public class UserController {
     @GetMapping("/{userId}/validate")
     public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
         return ResponseEntity.ok(userService.existsByUserId(userId));
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<UserResponse>> listAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }
