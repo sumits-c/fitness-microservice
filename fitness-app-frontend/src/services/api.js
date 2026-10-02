@@ -6,7 +6,8 @@ const api = axios.create({
   baseURL: API_URL
 });
 
-export const getActivities = () => api.get('/api/activities');
+export const getActivities = () => api.get(`/api/activities`);
 export const addActivity = (activity) => api.post('/api/activities', activity);
-export const getActivityDetail = (id) =>
+export const getActivity = (id) => api.get(`/api/activities/${id}`);
+export const getActivityRecommendation = (id) =>
   api.get(`/api/recommendations/activity/${id}`);

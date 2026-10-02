@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 
 @Data
@@ -28,7 +28,7 @@ public class ActivityRequest {
     private Integer caloriesBurned;
 
     @NotNull
-    private LocalDateTime startTime;
+    private Instant startTime;
 
     private Map<String, Object> additionalMetrics;
 }

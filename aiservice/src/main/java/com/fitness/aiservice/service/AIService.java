@@ -24,7 +24,7 @@ public class AIService {
     public String getAnswer(String question) {
 
         Map<String,Object> requestBody = Map.of(
-                "model", "nex-agi/nex-n2.5-mini:free",
+                "model", "dots-studio/dots-3-note-preview:free",
                 "messages", new Object[]{
                         Map.of(
                                 "role", "user",

@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class Activity {
 
     private Integer caloriesBurned;
 
-    private LocalDateTime startTime;
+    private Instant startTime;
 
     @Field("metrics")
     private Map<String, Object> additionalMetrics;

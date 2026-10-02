@@ -3,7 +3,7 @@ import {
     Route,
     Routes
 } from "react-router";
-
+import ActivityDetail from "./components/ActivityDetail";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 
@@ -55,6 +55,9 @@ function App() {
                         path="/activities"
                         element={<ActivitiesPage />}
                     />
+                    <Route
+                        path="/activities/:id"
+                        element={<ActivityDetail />} />
 
                 </Routes>
 
