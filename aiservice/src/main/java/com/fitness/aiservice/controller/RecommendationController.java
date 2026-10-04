@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class RecommendationController {
     }
     @GetMapping("/activity/{activityId}")
     public ResponseEntity<Recommendation> getActivityRecommendation(@PathVariable String activityId) {
-        return ResponseEntity.ok(recommendationService.getActivityRecommendation(activityId));
+
+        Optional<Recommendation> result= recommendationService.getActivityRecommendation(activityId);
+
+        return result.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.accepted().build());
     }
 }
