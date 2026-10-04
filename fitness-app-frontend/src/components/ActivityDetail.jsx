@@ -18,7 +18,7 @@ const ActivityDetail = () => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        const ready = false;
+        let ready = false;
         let active = true;
         const loadActivity = async () => {
             const response = await getActivity(id);
