@@ -172,9 +172,9 @@ const ActivityDetail = () => {
                             ))}
                         </>
                     )}
-                    <Typography color="text.secondary">
-                        Your personalized activity assessment will appear here.
-                    </Typography>
+                    {!recommendation && <Typography color="text.secondary">
+                      Your personalized activity assessment will appear here.
+                    </Typography>}
                 </CardContent>
             </Card>
         </Box>
