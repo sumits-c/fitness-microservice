@@ -23,11 +23,16 @@ public class ActivityAIService {
 
     public Recommendation generateRecommendation(Activity activity) {
         String prompt = createPromptForActivity(activity);
-        String aiResponse = aiService.getAnswer(prompt);
+        try {
+            String aiResponse = aiService.getAnswer(prompt);
 
-        log.info("RESPONSE FROM AI: {} ", aiResponse);
+            log.info("RESPONSE FROM AI: {} ", aiResponse);
 
-        return processAiResponse(activity, aiResponse);
+            return processAiResponse(activity, aiResponse);
+        } catch (Exception e) {
+            log.error("AI processing failed for activity {}", activity.getId(), e);
+            return createDefaultRecommendation(activity);
+        }
     }
 
     private Recommendation processAiResponse(Activity activity, String aiResponse) {
