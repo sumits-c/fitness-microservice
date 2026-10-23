@@ -8,13 +8,13 @@ import ActivityForm from "./components/ActivityForm";
 
 const sidebarWidth = 248;
 
-function Sidebar({ mobileOpen, onClose }) {
+function Sidebar({ mobile, mobileOpen, onClose }) {
   const theme = useTheme();
   const links = [{ label: "Activities", to: "/activities", mark: "↗" }];
   return (
     <Drawer
-      variant={mobileOpen ? "temporary" : "permanent"}
-      open={mobileOpen}
+      variant={mobile ? "temporary" : "permanent"}
+      open={mobile ? mobileOpen : true}
       onClose={onClose}
       sx={{
         width: sidebarWidth,
@@ -96,7 +96,7 @@ function App() {
   return (
     <Router>
       <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
-        <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+        <Sidebar mobile={isMobile} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
         <Box component="main" sx={{ flexGrow: 1, minWidth: 0, px: { xs: 2, sm: 3, lg: 5 }, py: { xs: 2.5, md: 4 } }}>
           {isMobile && (
             <Button variant="text" onClick={() => setMobileOpen(true)} sx={{ mb: 2, px: 0, color: "text.secondary" }}>☰ Menu</Button>
