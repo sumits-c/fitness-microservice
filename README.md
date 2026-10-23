@@ -14,25 +14,59 @@ An event-driven fitness tracking platform built with **Spring Boot microservices
 
 ## Architecture
  
+```mermaid
+flowchart LR
+    UI["React + Vite<br/>:5173"] --> GW["API Gateway<br/>:9090"]
+ 
+    GW --> US["User Service<br/>:8081"]
+    GW --> AS["Activity Service<br/>:8082"]
+    GW --> AI["AI Service<br/>:8083"]
+ 
+    AS -- "REST: validate user" --> US
+    US --> PG[("PostgreSQL<br/>users")]
+    AS --> MA[("MongoDB<br/>activities")]
+    AS -- "publish" --> MQ{{"RabbitMQ<br/>fitness.exchange"}}
+    MQ -- "activity.queue" --> AI
+    AI -- "prompt" --> LLM["LLM API"]
+    AI --> MR[("MongoDB<br/>recommendations")]
+ 
+    EU["Eureka Server<br/>:8761"]
+    GW -. "discover" .-> EU
+    US -. "register" .-> EU
+    AS -. "register" .-> EU
+    AI -. "register" .-> EU
 ```
-                     ┌────────────────────┐
-  React (Vite) ───►  │  API Gateway :9090 │
-                     └─────────┬──────────┘
-          lb:// routing via    │    Eureka Server :8761
-        ┌──────────────────────┼──────────────────────┐
-        ▼                      ▼                      ▼
- ┌──────────────┐     ┌────────────────┐     ┌────────────────┐
- │ User Service │◄────│Activity Service│     │   AI Service   │
- │    :8081     │ REST│     :8082      │     │     :8083      │
- └──────┬───────┘validate└──────┬──────┘     └───────┬────────┘
-        ▼                      │ publish             ▲ consume
-   PostgreSQL                  ▼                     │
-                     ┌───────────────────┐           │
-                     │ RabbitMQ          ├───────────┘
-                     │ fitness.exchange  │      ┌──────────┐
-                     │ → activity.queue  │      │ LLM API  │◄── AI Service
-                     └───────────────────┘      └──────────┘
-                      MongoDB (activities)       MongoDB (recommendations)
+ 
+Solid arrows show request and data flow. Dotted arrows show service registration and discovery through Eureka.
+
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant FE as React Frontend
+    participant GW as API Gateway
+    participant ACT as Activity Service
+    participant USR as User Service
+    participant MQ as RabbitMQ
+    participant AI as AI Service
+    participant LLM as LLM API
+ 
+    U->>FE: Log workout
+    FE->>GW: POST /api/activities
+    GW->>ACT: Route request
+    ACT->>USR: Validate user
+    USR-->>ACT: User exists
+    ACT->>ACT: Save activity to MongoDB
+    ACT-)MQ: Publish activity event
+    ACT-->>FE: Activity saved
+ 
+    MQ-)AI: Consume activity event
+    AI->>LLM: Send analysis prompt
+    LLM-->>AI: Structured JSON reply
+    AI->>AI: Parse and store recommendation (fallback if parsing fails)
+ 
+    FE->>GW: GET recommendation for activity
+    GW->>AI: Route request
+    AI-->>FE: 202 until ready, then the recommendation
 ```
 
 **Flow of a workout:**
