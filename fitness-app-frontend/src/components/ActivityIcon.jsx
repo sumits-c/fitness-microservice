@@ -7,7 +7,7 @@ import cyclingImage from "../assets/cycling.png";
 export default function ActivityIcon({ type, color = "currentColor", size = 24 }) {
     const kind = (type || "").toUpperCase();
     const common = { fill: "none", stroke: color, strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" };
-    const imageFilter = "brightness(0) saturate(100%) invert(29%) sepia(24%) saturate(1034%) hue-rotate(104deg) brightness(91%) contrast(91%)";
+    const imageFilter = "brightness(0) saturate(100%) invert(25%) sepia(36%) saturate(900%) hue-rotate(105deg) brightness(90%) contrast(95%)";
 
     if (kind.startsWith("WALK")) {
         return <Box component="img" src={walkingImage} alt="" aria-hidden="true" sx={{ width: size, height: size, objectFit: "contain", display: "block", filter: imageFilter }} />;
