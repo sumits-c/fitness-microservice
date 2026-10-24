@@ -7,12 +7,14 @@ export default function ActivityIcon({ type, color = "currentColor", size = 24 }
 
     let artwork;
     if (kind.startsWith("WALK")) {
+        // Compact walking pictogram: upright torso, natural opposing arm/leg stride.
         artwork = <g {...common}>
-            <circle cx="12" cy="4.5" r="2" />
-            <path d="M10.5 7.5 8.8 12l3.2 2.1 1.2 5.4" />
-            <path d="m10.5 8 4.2 2.1 2.5-.7" />
-            <path d="m8.8 12-3 4.1-1.5 1.2" />
-            <path d="m12 14.1-3.2 3.1-1 2.3" />
+            <circle cx="12.2" cy="4.2" r="1.8" />
+            <path d="m11.4 6.5-1.2 4.7 3.1 2.1" />
+            <path d="m11.1 7.3-3.2 2.2-2.1-.2" />
+            <path d="m11.5 7.1 3.1 2.1 2.8-.6" />
+            <path d="m10.2 11.2-2.4 4.1-2.5 2.2" />
+            <path d="m13.3 13.3 2.1 3.2.5 3" />
         </g>;
     } else if (kind.startsWith("RUN")) {
         artwork = <g {...common}>
