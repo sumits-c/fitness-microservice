@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import runningImage from "../assets/running.png";
+import walkingImage from "../assets/walking.jpg";
 
 /** Workout pictograms, kept in a shared 24px viewBox. */
 export default function ActivityIcon({ type, color = "currentColor", size = 24 }) {
@@ -8,14 +9,7 @@ export default function ActivityIcon({ type, color = "currentColor", size = 24 }
 
     let artwork;
     if (kind.startsWith("WALK")) {
-        artwork = <g {...common}>
-            <circle cx="12.2" cy="4.2" r="1.8" />
-            <path d="m11.4 6.5-1.2 4.7 3.1 2.1" />
-            <path d="m11.1 7.3-3.2 2.2-2.1-.2" />
-            <path d="m11.5 7.1 3.1 2.1 2.8-.6" />
-            <path d="m10.2 11.2-2.4 4.1-2.5 2.2" />
-            <path d="m13.3 13.3 2.1 3.2.5 3" />
-        </g>;
+        return <Box component="img" src={walkingImage} alt="" aria-hidden="true" sx={{ width: size, height: size, objectFit: "contain", display: "block", filter: "brightness(0) saturate(100%) invert(29%) sepia(24%) saturate(1034%) hue-rotate(104deg) brightness(91%) contrast(91%)" }} />;
     } else if (kind.startsWith("RUN")) {
         return <Box component="img" src={runningImage} alt="" aria-hidden="true" sx={{ width: size, height: size, objectFit: "contain", display: "block", filter: "brightness(0) saturate(100%) invert(29%) sepia(24%) saturate(1034%) hue-rotate(104deg) brightness(91%) contrast(91%)" }} />;
     } else if (kind.startsWith("CYCL")) {
