@@ -17,7 +17,8 @@ export default function ActivityIcon({ type, color = "currentColor", size = 24 }
             <path d="m13.3 13.3 2.1 3.2.5 3" />
         </g>;
     } else if (kind.startsWith("RUN")) {
-        artwork = <g {...common}>
+        // Slight forward lean makes the figure read as running toward the right.
+        artwork = <g {...common} transform="rotate(12 12 12)">
             <circle cx="15.5" cy="4.5" r="2" />
             <path d="m13.5 7.5-3.1 3.6 3.7 2.1 2.2 5.2" />
             <path d="m13.5 8 4.2 1.2 2.2-1.1" />
