@@ -11,6 +11,7 @@ import {
     Typography,
 } from "@mui/material";
 import { getActivity, getActivityRecommendation } from "../services/api";
+import ActivityIcon from "./ActivityIcon";
 
 const activityColors = {
     RUNNING: { color: "#176B4D", tint: "#E8F3ED", symbol: "↗" },
@@ -117,7 +118,7 @@ const ActivityDetail = () => {
                 <CardContent sx={{ p: { xs: 2.25, sm: 3 }, "&:last-child": { pb: { xs: 2.25, sm: 3 } } }}>
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <Box sx={{ width: 60, height: 60, flexShrink: 0, display: "grid", placeItems: "center", borderRadius: "18px", bgcolor: palette.tint, color: palette.color, fontSize: 27 }}>
-                            {palette.symbol}
+                            <ActivityIcon type={type} size={32} color={palette.color} />
                         </Box>
                         <Box sx={{ minWidth: 0 }}>
                             <Typography variant="h2" sx={{ textTransform: "capitalize" }}>{activity?.type?.toLowerCase() || "Activity"}</Typography>
