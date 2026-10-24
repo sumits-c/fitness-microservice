@@ -174,29 +174,62 @@ const ActivityDetail = () => {
                     </Box>
                     <CardContent sx={{ p: 2.25 }}>
                         {recommendation?.recommendation ? (
-                            <Box sx={{ p: 2, mb: 2, borderRadius: 2.5, bgcolor: "#F4F8F5", border: "1px solid #E1ECE5" }}>
-                                <Typography variant="subtitle1" sx={{ color: "primary.dark", mb: 0.75 }}>● Overall</Typography>
-                                <Typography color="text.secondary">{recommendation.recommendation}</Typography>
-                            </Box>
-                        ) : (
-                            <Box sx={{ p: 2, mb: 2, borderRadius: 2.5, bgcolor: "#F4F8F5", border: "1px solid #E1ECE5" }}>
-                                <Typography variant="subtitle1" sx={{ color: "primary.dark", mb: 0.75 }}>● Overall</Typography>
-                                <Typography color="text.secondary">{error || "Your personalized activity assessment will appear here once the recommendation is ready."}</Typography>
-                            </Box>
-                        )}
-                        {recommendation?.improvements?.length > 0 && (
-                            <Box sx={{ p: 2, borderRadius: 2.5, border: "1px solid", borderColor: "divider" }}>
-                                <Typography variant="subtitle1" sx={{ mb: 1, color: "primary.dark" }}>Areas for improvement</Typography>
-                                <Stack spacing={1}>
-                                    {recommendation.improvements.map((item, index) => (
-                                        <Stack key={index} direction="row" spacing={1.25} alignItems="flex-start">
-                                            <Typography color="primary.main">•</Typography>
-                                            <Typography color="text.secondary">{item}</Typography>
+                    (() => {
+                        const raw = recommendation.recommendation;
+                        const sections = {};
+                        const sectionPattern = /(?:^|\\s)(Overall|Pace|Heart\\s*rate|Calories|Areas for improvement)\\s*:/gi;
+                        const matches = [...raw.matchAll(sectionPattern)];
+                        if (matches.length > 1) {
+                            matches.forEach((match, index) => {
+                                const key = match[1].toLowerCase().replace(/\\s+/g, " ");
+                                const value = raw.slice(match.index + match[0].length).split(/(?:Overall|Pace|Heart\\s*rate|Calories|Areas for improvement)\\s*:/i)[0].trim();
+                                sections[key] = value;
+                            });
+                        }
+                        const overall = sections.overall || raw;
+                        const insights = [
+                            { key: "pace", label: "Pace", color: "#4169E1", text: sections.pace },
+                            { key: "heart rate", label: "Heart rate", color: "#D64B62", text: sections["heart rate"] },
+                            { key: "calories", label: "Calories", color: "#C96B2C", text: sections.calories },
+                        ].filter((item) => item.text);
+                        return (
+                            <>
+                                <Box sx={{ p: 2, mb: 1.75, borderRadius: 2.5, bgcolor: "#F4F8F5", border: "1px solid #E1ECE5" }}>
+                                    <Typography variant="subtitle1" sx={{ color: "primary.dark", mb: 0.75, fontWeight: 750 }}>● Overall</Typography>
+                                    <Typography color="text.secondary">{overall}</Typography>
+                                </Box>
+                                {insights.length > 0 && (
+                                    <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))" }, gap: 1.5, mb: 1.75 }}>
+                                        {insights.map((item) => (
+                                            <Box key={item.key} sx={{ p: 2, borderRadius: 2.5, border: "1px solid", borderColor: "divider" }}>
+                                                <Typography variant="subtitle2" sx={{ color: item.color, fontWeight: 750, mb: 0.75 }}>● {item.label}</Typography>
+                                                <Typography variant="body2" color="text.secondary">{item.text}</Typography>
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                )}
+                                {recommendation.improvements?.length > 0 && (
+                                    <Box sx={{ p: 2, borderRadius: 2.5, border: "1px solid", borderColor: "divider" }}>
+                                        <Typography variant="subtitle1" sx={{ mb: 1, color: "primary.dark", fontWeight: 750 }}>Areas for improvement</Typography>
+                                        <Stack spacing={1}>
+                                            {recommendation.improvements.map((item, index) => (
+                                                <Stack key={index} direction="row" spacing={1.25} alignItems="flex-start">
+                                                    <Typography color="primary.main">•</Typography>
+                                                    <Typography variant="body2" color="text.secondary">{item}</Typography>
+                                                </Stack>
+                                            ))}
                                         </Stack>
-                                    ))}
-                                </Stack>
-                            </Box>
-                        )}
+                                    </Box>
+                                )}
+                            </>
+                        );
+                    })()
+                ) : (
+                    <Box sx={{ p: 2, borderRadius: 2.5, bgcolor: "#F4F8F5", border: "1px solid #E1ECE5" }}>
+                        <Typography variant="subtitle1" sx={{ color: "primary.dark", mb: 0.75 }}>● Overall</Typography>
+                        <Typography color="text.secondary">{error || "Your personalized activity assessment will appear here once the recommendation is ready."}</Typography>
+                    </Box>
+                )}
                     </CardContent>
                 </Card>
             </Box>
