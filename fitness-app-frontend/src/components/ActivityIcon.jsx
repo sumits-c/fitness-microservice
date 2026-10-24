@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import runningImage from "../assets/running.png";
 
 /** Workout pictograms, kept in a shared 24px viewBox. */
 export default function ActivityIcon({ type, color = "currentColor", size = 24 }) {
