@@ -12,13 +12,7 @@ import {
 } from "@mui/material";
 import { getActivity, getActivityRecommendation } from "../services/api";
 import ActivityIcon from "./ActivityIcon";
-
-const activityColors = {
-    RUNNING: { color: "#176B4D", tint: "#E8F3ED", symbol: "↗" },
-    WALKING: { color: "#287A68", tint: "#E8F3EF", symbol: "🚶" },
-    CYCLING: { color: "#176B4D", tint: "#E8F3ED", symbol: "⌁" },
-    WORKOUT: { color: "#8062A8", tint: "#F0EBF7", symbol: "✦" },
-};
+import { getActivityColor } from "../theme/activityColors";
 
 const metricRows = [
     { key: "distance", label: "Distance", unit: "km" },
@@ -97,7 +91,7 @@ const ActivityDetail = () => {
     }, [id]);
 
     const type = (activity?.type || "Activity").toUpperCase();
-    const palette = activityColors[type] || { color: "#176B4D", tint: "#E8F3ED", symbol: "✦" };
+    const palette = getActivityColor(type);
     const metrics = activity?.additionalMetrics || {};
 
     return (
