@@ -11,6 +11,7 @@ import {
     Typography,
 } from "@mui/material";
 import { getActivities } from "../services/api";
+import ActivityIcon from "./ActivityIcon";
 
 const activityAccent = {
     RUNNING: "#176B4D",
@@ -136,7 +137,7 @@ const ActivityList = ({ refreshTrigger }) => {
                                                     fontWeight: 800,
                                                 }}
                                             >
-                                                {type.toUpperCase().startsWith("RUN") ? "↗" : type.toUpperCase().startsWith("WALK") ? "🚶" : type.toUpperCase().startsWith("CYCL") ? "⌁" : "✦"}
+                                                <ActivityIcon type={type} size={23} />
                                             </Box>
                                             <Chip
                                                 label={type}
