@@ -22,7 +22,16 @@ const ActivityList = ({ refreshTrigger }) => {
         const fetchActivities = async () => {
             try {
                 const response = await getActivities();
-                setActivities(Array.isArray(response.data) ? response.data : []);
+                const items = Array.isArray(response.data) ? response.data : [];
+                setActivities(
+                    [...items].sort((a, b) => {
+                        const dateA = new Date(a.startTime).getTime();
+                        const dateB = new Date(b.startTime).getTime();
+                        const validA = Number.isFinite(dateA) ? dateA : -Infinity;
+                        const validB = Number.isFinite(dateB) ? dateB : -Infinity;
+                        return validB - validA;
+                    })
+                );
             } catch (error) {
                 console.error("Unable to load activities", error);
             }
