@@ -177,13 +177,13 @@ const ActivityDetail = () => {
                     (() => {
                         const raw = recommendation.recommendation;
                         const sections = {};
-                        const sectionPattern = /(Overall|Pace|Heart\\s*Rate|Calories)\\s*:/gi;
+                        const sectionPattern = /(Overall|Pace|Heart\s*Rate|Calories)\s*:/gi;
                         const matches = [...raw.matchAll(sectionPattern)];
                         matches.forEach((match, index) => {
-                            const key = match[1].toLowerCase().replace(/\\s+/g, " ");
+                            const key = match[1].toLowerCase().replace(/\s+/g, " ");
                             const start = match.index + match[0].length;
                             const end = index + 1 < matches.length ? matches[index + 1].index : raw.length;
-                            sections[key] = raw.slice(start, end).trim().replace(/^[:\\s]+/, "");
+                            sections[key] = raw.slice(start, end).trim().replace(/^[:\s]+/, "");
                         });
                         const overall = sections.overall || raw;
                         const insights = [
