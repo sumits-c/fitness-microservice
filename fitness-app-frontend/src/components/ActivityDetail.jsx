@@ -16,7 +16,7 @@ import ActivityIcon from "./ActivityIcon";
 const activityColors = {
     RUNNING: { color: "#176B4D", tint: "#E8F3ED", symbol: "↗" },
     WALKING: { color: "#287A68", tint: "#E8F3EF", symbol: "🚶" },
-    CYCLING: { color: "#A66B32", tint: "#FBF0E6", symbol: "⌁" },
+    CYCLING: { color: "#176B4D", tint: "#E8F3ED", symbol: "⌁" },
     WORKOUT: { color: "#8062A8", tint: "#F0EBF7", symbol: "✦" },
 };
 
