@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import {
-    ArrowBack,
     Box,
     Button,
     Card,
@@ -103,7 +102,7 @@ const ActivityDetail = () => {
     return (
         <Box sx={{ maxWidth: 1180, mx: "auto", width: "100%" }}>
             <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} justifyContent="space-between" spacing={2} sx={{ mb: 3 }}>
-                <Button startIcon={<ArrowBack />} onClick={() => navigate("/activities")} variant="text" sx={{ color: "text.secondary", px: 0 }}>
+                <Button startIcon={<span aria-hidden="true">←</span>} onClick={() => navigate("/activities")} variant="text" sx={{ color: "text.secondary", px: 0 }}>
                     Back to activities
                 </Button>
                 <Chip label={formatDate(activity?.startTime)} variant="outlined" sx={{ bgcolor: "#FFFFFF", borderColor: "divider", color: "text.secondary" }} />
