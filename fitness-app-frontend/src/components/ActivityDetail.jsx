@@ -134,7 +134,7 @@ const ActivityDetail = () => {
 
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))" }, gap: 2, mb: 2.5 }}>
                 <MetricCard label="Duration" value={activity?.duration} unit="min" tint="#E8F3ED" symbol="◷" />
-                <MetricCard label="Calories burned" value={activity?.caloriesBurned} unit="kcal" tint="#FBF0E6" symbol="♨" />
+                <MetricCard label="Calories burned" value={activity?.caloriesBurned} unit="kcal" tint="#E8F3ED" symbol="♨" />
             </Box>
 
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 0.9fr) minmax(0, 1.3fr)" }, gap: 2 }}>
