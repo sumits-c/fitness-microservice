@@ -136,7 +136,7 @@ const ActivityList = ({ refreshTrigger }) => {
                                                     fontWeight: 800,
                                                 }}
                                             >
-                                                {type.toUpperCase().startsWith("RUN") ? "↗" : type.toUpperCase().startsWith("WALK") ? "⌁" : type.toUpperCase().startsWith("CYCL") ? "⌁" : "✦"}
+                                                {type.toUpperCase().startsWith("RUN") ? "↗" : type.toUpperCase().startsWith("WALK") ? "🚶" : type.toUpperCase().startsWith("CYCL") ? "⌁" : "✦"}
                                             </Box>
                                             <Chip
                                                 label={type}
