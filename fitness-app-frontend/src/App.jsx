@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, NavLink, Route, Routes, Navigate } from "react-router";
-import { Box, Button, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Drawer, Grid, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import ActivityDetail from "./components/ActivityDetail";
 import ActivityList from "./components/ActivityList";
@@ -9,7 +9,6 @@ import ActivityForm from "./components/ActivityForm";
 const sidebarWidth = 248;
 
 function Sidebar({ mobile, mobileOpen, onClose }) {
-  const theme = useTheme();
   const links = [{ label: "Activities", to: "/activities", mark: "↗" }];
   return (
     <Drawer
@@ -63,27 +62,33 @@ function Sidebar({ mobile, mobileOpen, onClose }) {
 
 function ActivitiesPage() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [formOpen, setFormOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(true);
+
   const handleActivityAdded = () => {
     setRefreshTrigger((prev) => prev + 1);
     setFormOpen(false);
   };
 
   return (
-    <Box sx={{ maxWidth: 1180, mx: "auto", width: "100%" }}>
+    <Box sx={{ maxWidth: 1280, mx: "auto", width: "100%" }}>
       <Box sx={{ display: "flex", alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between", gap: 2, mb: 3, flexDirection: { xs: "column", sm: "row" } }}>
         <Box>
-          <Typography variant="h1" sx={{ mb: 0.75 }}>Activities</Typography>
-          <Typography color="text.secondary">Your movement, collected in one place.</Typography>
+          <Typography variant="h1" sx={{ mb: 0.75 }}>Your activities</Typography>
+          <Typography color="text.secondary">A simple overview of your recorded workout sessions.</Typography>
         </Box>
-        <Button variant="contained" onClick={() => setFormOpen((open) => !open)}>{formOpen ? "Close form" : "+ Log activity"}</Button>
+        <Button variant="outlined" onClick={() => setFormOpen((open) => !open)}>{formOpen ? "Hide form" : "+ Quick add"}</Button>
       </Box>
-      {formOpen && (
-        <Box sx={{ mb: 3 }}>
-          <ActivityForm onActivityAdded={handleActivityAdded} />
-        </Box>
-      )}
-      <ActivityList refreshTrigger={refreshTrigger} />
+
+      <Grid container spacing={2.5} alignItems="flex-start">
+        {formOpen && (
+          <Grid item xs={12} md={5}>
+            <ActivityForm onActivityAdded={handleActivityAdded} />
+          </Grid>
+        )}
+        <Grid item xs={12} md={formOpen ? 7 : 12}>
+          <ActivityList refreshTrigger={refreshTrigger} />
+        </Grid>
+      </Grid>
     </Box>
   );
 }
@@ -97,7 +102,7 @@ function App() {
     <Router>
       <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
         <Sidebar mobile={isMobile} mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
-        <Box component="main" sx={{ flexGrow: 1, minWidth: 0, px: { xs: 2, sm: 3, lg: 5 }, py: { xs: 2.5, md: 4 } }}>
+        <Box component="main" sx={{ flexGrow: 1, minWidth: 0, px: { xs: 2, sm: 3, lg: 4 }, py: { xs: 2.5, md: 4 } }}>
           {isMobile && (
             <Button variant="text" onClick={() => setMobileOpen(true)} sx={{ mb: 2, px: 0, color: "text.secondary" }}>☰ Menu</Button>
           )}
