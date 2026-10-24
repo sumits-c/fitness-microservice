@@ -12,13 +12,7 @@ import {
 } from "@mui/material";
 import { getActivities } from "../services/api";
 import ActivityIcon from "./ActivityIcon";
-
-const activityAccent = {
-    RUNNING: "#176B4D",
-    WALKING: "#477A9B",
-    CYCLING: "#A66B32",
-    WORKOUT: "#8062A8",
-};
+import { getActivityColor } from "../theme/activityColors";
 
 const ActivityList = ({ refreshTrigger }) => {
     const [activities, setActivities] = useState([]);
@@ -103,7 +97,7 @@ const ActivityList = ({ refreshTrigger }) => {
             <Grid container spacing={2}>
                 {activities.map((activity) => {
                     const type = (activity.type || "Activity").toString();
-                    const accent = activityAccent[type.toUpperCase()] || "#176B4D";
+                    const accent = getActivityColor(type).color;
 
                     return (
                         <Grid item xs={12} sm={6} lg={4} key={activity.id}>
