@@ -17,16 +17,7 @@ export default function ActivityIcon({ type, color = "currentColor", size = 24 }
             <path d="m13.3 13.3 2.1 3.2.5 3" />
         </g>;
     } else if (kind.startsWith("RUN")) {
-        // A right-facing runner with a forward-leaning torso and clear opposing stride.
-        artwork = <g {...common}>
-            <path d="M3.2 8.1h3.1M1.8 11.2h2.6" strokeWidth="1.5" />
-            <circle cx="15.3" cy="4.1" r="1.65" />
-            <path d="m13.9 6.2-3.1 3.5 3.1 1.5" strokeWidth="2.1" />
-            <path d="m13.6 6.8 3.3 1.1 2.8-.8" strokeWidth="2.1" />
-            <path d="m10.8 9.7-3.5 1.8-2.1-.2" strokeWidth="2.1" />
-            <path d="m13.9 11.2-3.4 3.1-3.3 2.2" strokeWidth="2.1" />
-            <path d="m13.9 11.2 2.8 2.8 2.7 1.1" strokeWidth="2.1" />
-        </g>;
+        return <Box component="img" src={runningImage} alt="" aria-hidden="true" sx={{ width: size, height: size, objectFit: "contain", display: "block", filter: "brightness(0) saturate(100%) invert(29%) sepia(24%) saturate(1034%) hue-rotate(104deg) brightness(91%) contrast(91%)" }} />;
     } else if (kind.startsWith("CYCL")) {
         artwork = <g {...common}>
             <circle cx="5.5" cy="16.5" r="3.5" /><circle cx="18.5" cy="16.5" r="3.5" />
